@@ -1,19 +1,44 @@
 module.exports = () => {
   const start = ({ bus }, cb) => {
     const process = async message => {
-      console.log(message);
-      const publishMessage = await bus.publish('productUpdated')
-      console.log(publishMessage);
-      await publishMessage(message.body,{label: 'noordhoff'})
-      // await bus.publish('productUpdated')
       await message.complete();
       console.log(message.body);
     };
 
+    const republishMessage = async message => {
+      const {entityPath} =message._context
+      const topic = entityPath.split('/')[0]
+      try {
+        // const publishMessage = await bus.publish('productUpdated')
+        const publishMessage = await bus.publishOnTopic(topic)
+        console.log(publishMessage);
+        await publishMessage(message.body,{label: message.label})
+        // await bus.publish('productUpdated')
+        await message.complete();
+        console.log(message.body);
+      }catch (error) {
+        console.error(error)
+        throw error
+      }
+    }
+
+    // Code to add on node_modules/systemic-azure-bus/index.js
+    /*
+        const publishOnTopic = topic => {
+      if (!topic) throw new Error(`Topic for non found!`);
+      let { sender } = sendersByPublication.find(senderByPub => senderByPub.publicationId === publicationId) || {};
+      if (!sender) {
+        sender = topicClientFactory.createSender(topic);
+      }
+      return topicApi.publish(sender);
+    };
+
+		return {
+      publishOnTopic,
+     */
 
 
-
-    bus.processDlq('default', process);
+    bus.processDlq('default', republishMessage);
 
     const api = {};
     cb(null, api);
@@ -21,7 +46,6 @@ module.exports = () => {
 
   return { start };
 };
-
 
 // Telekosmos code
 //
