@@ -27,3 +27,7 @@ Now run:
 ### To get the API Docs go to:
 
 `GET /api-docs`
+
+## Credits
+
+Original idea https://github.com/josegrobles/DLQ-Inspector
