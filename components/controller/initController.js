@@ -35,6 +35,8 @@ module.exports = () => {
 
     bus.processDlq('productUpdatedNoordhoffOrders', republishMessage);
     bus.processDlq('productUpdatedPlantynOrders', republishMessage);
+    bus.processDlq('productDeletedNoordhoffOrders', republishMessage);
+    bus.processDlq('productDeletedPlantynOrders', republishMessage);
 
     const api = {};
     cb(null, api);

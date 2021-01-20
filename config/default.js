@@ -32,6 +32,28 @@ module.exports = {
         },
       },
     },
+    productDeletedNoordhoffOrders: {
+      topic: 'ecommerce-proxy.v1.product.deleted',
+      subscription: 'noord-orders-api',
+      errorHandling: {
+        strategy: 'exponentialBackoff',
+        options: {
+          measure: 'seconds',
+          attempts: 3,
+        },
+      },
+    },
+    productDeletedPlantynOrders: {
+      topic: 'ecommerce-proxy.v1.product.deleted',
+      subscription: 'plant-orders-api',
+      errorHandling: {
+        strategy: 'exponentialBackoff',
+        options: {
+          measure: 'seconds',
+          attempts: 3,
+        },
+      },
+    },
     publications: {
       productUpdated: {
         topic: 'ecommerce-proxy.v1.product.updated'
