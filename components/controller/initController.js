@@ -11,6 +11,7 @@ module.exports = () => {
       try {
         await bus.publishOnTopic(topic)(body,{ label: label})
         await message.complete();
+        console.log(`Message with id: ${body.id} and label: ${label} and published on topic: ${topic} and consumed`)
       }catch (error) {
         console.error(error)
         throw error
@@ -35,8 +36,8 @@ module.exports = () => {
 
     bus.processDlq('productUpdatedNoordhoffOrders', republishMessage);
     bus.processDlq('productUpdatedPlantynOrders', republishMessage);
-    bus.processDlq('productDeletedNoordhoffOrders', republishMessage);
-    bus.processDlq('productDeletedPlantynOrders', republishMessage);
+    // bus.processDlq('productDeletedNoordhoffOrders', republishMessage);
+    // bus.processDlq('productDeletedPlantynOrders', republishMessage);
 
     const api = {};
     cb(null, api);
