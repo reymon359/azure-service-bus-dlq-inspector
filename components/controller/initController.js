@@ -9,9 +9,7 @@ module.exports = () => {
       const { body, label, _context} = message
       const topic = _context.entityPath.split('/')[0]
       try {
-        const publishMessage = await bus.publishOnTopic(topic)
-        await publishMessage(body,{ label: label})
-        // await bus.publishOnTopic(topic)(body,{ label: label})
+        await bus.publishOnTopic(topic)(body,{ label: label})
         await message.complete();
       }catch (error) {
         console.error(error)
