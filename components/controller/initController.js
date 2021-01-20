@@ -6,16 +6,13 @@ module.exports = () => {
     };
 
     const republishMessage = async message => {
-      const {entityPath} =message._context
-      const topic = entityPath.split('/')[0]
+      const { body, label, _context} = message
+      const topic = _context.entityPath.split('/')[0]
       try {
-        // const publishMessage = await bus.publish('productUpdated')
         const publishMessage = await bus.publishOnTopic(topic)
-        console.log(publishMessage);
-        await publishMessage(message.body,{label: message.label})
-        // await bus.publish('productUpdated')
+        await publishMessage(body,{ label: label})
+        // await bus.publishOnTopic(topic)(body,{ label: label})
         await message.complete();
-        console.log(message.body);
       }catch (error) {
         console.error(error)
         throw error
