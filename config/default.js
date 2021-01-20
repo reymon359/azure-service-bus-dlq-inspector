@@ -9,9 +9,20 @@ module.exports = {
       connectionString: process.env.AZURE_SERVICEBUS_CONNECTION_STRING,
     },
     subscriptions: {
-      default: {
+      productUpdatedNoordhoffOrders: {
         topic: 'ecommerce-proxy.v1.product.updated',
         subscription: 'noord-orders-api',
+        errorHandling: {
+          strategy: 'exponentialBackoff',
+          options: {
+            measure: 'seconds',
+            attempts: 3,
+          },
+        },
+      },
+      productUpdatedPlantynOrders: {
+        topic: 'ecommerce-proxy.v1.product.updated',
+        subscription: 'plant-orders-api',
         errorHandling: {
           strategy: 'exponentialBackoff',
           options: {

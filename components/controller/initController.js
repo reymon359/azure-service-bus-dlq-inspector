@@ -33,7 +33,8 @@ module.exports = () => {
      */
 
 
-    bus.processDlq('default', republishMessage);
+    bus.processDlq('productUpdatedNoordhoffOrders', republishMessage);
+    bus.processDlq('productUpdatedPlantynOrders', republishMessage);
 
     const api = {};
     cb(null, api);
