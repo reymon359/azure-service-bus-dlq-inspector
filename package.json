@@ -1,5 +1,5 @@
 {
-  "name": "dlq-inspector",
+  "name": "azure-service-buss-dlq-inspector",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,7 +12,7 @@
     "qa": "npm run lint && npm run test",
     "deploy": "helm upgrade service-liber-profile ./.helm --install"
   },
-  "author": "",
+  "author": "reymon359",
   "license": "ISC",
   "dependencies": {
     "@liber/module-liber-auth": "^1.0.7288",
